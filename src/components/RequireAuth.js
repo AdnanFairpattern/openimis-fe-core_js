@@ -154,7 +154,7 @@ const useStyles = makeStyles((theme) => ({
 
 const RequireAuth = (props) => {
   const { children, logo, redirectTo, ...others } = props;
-  const [isOpen, setOpen] = useBoolean();
+  const [isOpen, setOpen] = useBoolean(true);
   const [isDrawerOpen, setDrawerOpen] = useBoolean();
   const theme = useTheme();
   const classes = useStyles();
@@ -171,19 +171,20 @@ const RequireAuth = (props) => {
     <>
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, {
+        className={(classes.appBar, {
           [classes.appBarShift]: isOpen && theme.breakpoints.up("md"),
         })}
       >
+
         <Toolbar>
           <IconButton
             color="inherit"
             onClick={setOpen.toggle}
-            className={clsx(classes.menuButton, isAppBarMenu && classes.autoHideMenuButton, isOpen && classes.hide)}
+            className={(classes.menuButton, isAppBarMenu && classes.autoHideMenuButton, isOpen && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
-          <Button className={classes.appName} onClick={(e) => (window.location.href = "/front")}>
+          <Button className={classes.appName} onClick={(e) => (window.location.href = "/front/")}>
             {isAppBarMenu && (
               <Hidden smDown implementation="css">
                 <img className={classes.logo} src={logo} />
@@ -201,7 +202,7 @@ const RequireAuth = (props) => {
           {isAppBarMenu && (
             <Hidden smDown implementation="css">
               <Contributions {...others} menuVariant="AppBar" contributionKey={MAIN_MENU_CONTRIBUTION_KEY}>
-                <div onClick={setOpen.off} />
+                
               </Contributions>
             </Hidden>
           )}
@@ -213,7 +214,7 @@ const RequireAuth = (props) => {
         </Toolbar>
       </AppBar>
       {isOpen && (
-        <ClickAwayListener onClickAway={setOpen.off}>
+        <ClickAwayListener>
           <nav className={classes.drawer}>
             <Drawer
               className={classes.drawer}
@@ -234,7 +235,7 @@ const RequireAuth = (props) => {
       <JournalDrawer open={isDrawerOpen} handleDrawer={setDrawerOpen.toggle} />
       <div className={classes.toolbar} />
       <main
-        className={clsx(classes.content, {
+        className={(classes.content, {
           [classes.jrnlContentShift]: isDrawerOpen,
         })}
       >
