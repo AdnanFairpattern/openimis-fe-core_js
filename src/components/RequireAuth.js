@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, } from "react";
 import withWidth from "@material-ui/core/withWidth";
 import { Redirect } from "../helpers/history";
 import { alpha, useTheme, makeStyles } from "@material-ui/core/styles";
@@ -163,6 +163,21 @@ const RequireAuth = (props) => {
 
   const isAppBarMenu = useMemo(() => theme.menu.variant.toUpperCase() === "APPBAR", [theme.menu.variant]);
 
+
+
+
+
+
+  function myFunction() {
+    document.getElementById("demo").innerHTML = "Window width: " + window.innerWidth + "<br>Window height: " + window.innerHeight;
+  }
+
+
+
+
+  
+  
+  
   if (!auth.isAuthenticated) {
     return <Redirect to={redirectTo} />;
   }
@@ -171,7 +186,7 @@ const RequireAuth = (props) => {
     <>
       <AppBar
         position="fixed"
-        className={(classes.appBar, {
+        className={clsx(classes.appBar, {
           [classes.appBarShift]: isOpen && theme.breakpoints.up("md"),
         })}
       >
@@ -179,8 +194,12 @@ const RequireAuth = (props) => {
         <Toolbar>
           <IconButton
             color="inherit"
-            onClick={setOpen.toggle}
-            className={(classes.menuButton, isAppBarMenu && classes.autoHideMenuButton, isOpen && classes.hide)}
+            onClick={() => {
+              setOpen.toggle();
+             
+             
+            }}
+            className={clsx(classes.menuButton, isAppBarMenu && classes.autoHideMenuButton, isOpen && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
@@ -235,7 +254,7 @@ const RequireAuth = (props) => {
       <JournalDrawer open={isDrawerOpen} handleDrawer={setDrawerOpen.toggle} />
       <div className={classes.toolbar} />
       <main
-        className={(classes.content, {
+        className={clsx(classes.content, {
           [classes.jrnlContentShift]: isDrawerOpen,
         })}
       >
